@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>高中数学（可打印版本）</title>
+  <style>
+    :root{--accent:#0b68ff;--muted:#555}
+    body{font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", Arial; color:#111; margin:0; padding:20px; background:#fff}
+    header{margin-bottom:18px}
+    h1{font-size:20px;margin:0 0 6px}
+    .meta{color:var(--muted);font-size:13px}
+    section{page-break-inside:avoid;margin:18px 0}
+    h2{font-size:16px;margin:6px 0}
+    .formula{background:#f7f9ff;padding:8px;border-left:4px solid var(--accent);border-radius:4px;margin:8px 0;font-family:serif}
+    .example{border-left:4px solid #0b68ff;padding:8px 10px;background:#fbfdff;border-radius:4px;margin:8px 0}
+    details{margin:8px 0}
+    nav.toc{margin:10px 0 18px;padding:10px;border:1px solid #eee}
+    .small{color:var(--muted);font-size:13px}
+    footer{color:var(--muted);font-size:12px;margin-top:24px}
+    /* Print settings */
+    @page { size: A4; margin: 20mm; }
+    @media print{
+      body{padding:0}
+      nav.toc, .no-print{display:none}
+      header h1{font-size:18px}
+      .formula{background:transparent;border-left:3px solid var(--accent);}
+    }
+    @media (max-width:720px){body{padding:12px}}
+  </style>
+  <script>
+    window.MathJax = {tex: {inlineMath: [['$','$'], ['\\(','\\)']]}, svg:{fontCache:'global'}};
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header>
+    <h1>高中数学知识点解析（可打印 / 导出 PDF）</h1>
+    <div class="meta">包含代数、函数、几何、三角、数列、解析（微积分入门）、概率统计与线性代数基础</div>
+  </header>
+
+  <div class="no-print">
+    <button onclick="window.print()">在浏览器中打印 / 导出为 PDF</button>
+    <p class="small">提示：点击上方按钮后选择“另存为 PDF”或“打印为 PDF”。若需要我直接生成 PDF 文件并上传，请回复我。</p>
+  </div>
+
+  <nav class="toc">
+    <strong>目录</strong>
+    <ol>
+      <li>代数基础</li>
+      <li>函数与图像</li>
+      <li>几何（平面与向量）</li>
+      <li>三角函数与公式</li>
+      <li>数列（等差等比与递推）</li>
+      <li>解析（极限、导数、积分简介）</li>
+      <li>概率与统计</li>
+      <li>线性代数基础（矩阵与行列式）</li>
+      <li>解题思路与常见技巧</li>
+    </ol>
+  </nav>
+
+  <section>
+    <h2>1. 代数基础</h2>
+    <p class="small">主要包括整式与分式、方程与不等式、复数、指数与对数等。</p>
+    <h3>方程与不等式</h3>
+    <p>二次方程判别式 $\Delta=b^2-4ac$：若 $\Delta>0$ 有两个不等实根；$\Delta=0$ 有重根；$\Delta<0$ 无实根。</p>
+    <div class="formula">二次公式：$x=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$</div>
+    <details>
+      <summary>示例：解方程 $2x^2-3x-5=0$</summary>
+      <div class="example">判别式 $\Delta=49$，$x=\dfrac{3\pm7}{4}$，解 $x=5/2$ 或 $x=-1$。</div>
+    </details>
+    <h3>复数</h3>
+    <p>复数 $a+bi$，模 $|z|=\sqrt{a^2+b^2}$。</p>
+  </section>
+
+  <section>
+    <h2>2. 函数与图像</h2>
+    <p>函数定义、奇偶性、单调性、最大最小值、周期性等。</p>
+    <details>
+      <summary>示例：求 $f(x)=x^3-3x$ 的单调区间</summary>
+      <div class="example">$f'(x)=3(x^2-1)$，临界点 $x=\pm1$，在 $(-\infty,-1)$ 与 $(1,\infty)$ 递增，$(-1,1)$ 递减。</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>3. 几何（平面与向量）</h2>
+    <p>内角和：$\alpha+\beta+\gamma=180^\circ$。余弦定理：$c^2=a^2+b^2-2ab\cos C$。面积 $S=\tfrac12 ab\sin C$。</p>
+    <details>
+      <summary>示例：已知 $a=5,b=7,C=60^\circ$，求 $c$</summary>
+      <div class="example">$c=\sqrt{39}$。</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>4. 三角函数与公式</h2>
+    <div class="formula">$\sin(A\pm B)=\sin A\cos B\pm\cos A\sin B$，$\cos(A\pm B)=\cos A\cos B\mp\sin A\sin B$。</div>
+    <details>
+      <summary>示例：化简 $\sin x+\sin 3x$</summary>
+      <div class="example">$\sin x+\sin 3x=2\sin(2x)\cos x$。</div>
+    </details>
+  </section>
+
+  <section>
+    <h2>5. 数列（等差、等比与递推）</h2>
+    <p>等差：$a_n=a_1+(n-1)d$，和 $S_n=\tfrac n2(a_1+a_n)$。等比：$a_n=a_1r^{n-1}$，$S_n=a_1\tfrac{1-r^n}{1-r}$（$r\neq1$）。</p>
+  </section>
+
+  <section>
+    <h2>6. 解析（极限、导数、积分简介）</h2>
+    <p>常见极限：$\lim_{x\to0}\dfrac{\sin x}{x}=1$。导数：$f'(x)=\lim_{h\to0}\dfrac{f(x+h)-f(x)}{h}$。积分：$\int_a^b f(x)dx=F(b)-F(a)$。</p>
+  </section>
+
+  <section>
+    <h2>7. 概率与统计</h2>
+    <p>条件概率 $P(A|B)=\dfrac{P(A\cap B)}{P(B)}$。独立事件 $P(A\cap B)=P(A)P(B)$。</p>
+  </section>
+
+  <section>
+    <h2>8. 线性代数基础</h2>
+    <p>2x2 矩阵逆：若 $A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\ \det A=ad-bc\neq0$，则 $A^{-1}=\tfrac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$。</p>
+  </section>
+
+  <section>
+    <h2>解题思路与常见技巧</h2>
+    <ul>
+      <li>审题并画图；</li>
+      <li>合适代换；</li>
+      <li>讨论边界与极限。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="small">生成说明：该文件为 A4 优化的可打印 HTML，建议在浏览器打开后使用“打印 → 保存为 PDF”导出高质量 PDF。如需我直接生成并提交 PDF 文件，请回复“生成并提交 PDF”。</p>
+  </footer>
+</body>
+</html>

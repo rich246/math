@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>本地数学 AI - 示例前端</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    textarea { width: 100%; height: 80px; }
+    .result { border: 1px solid #ddd; padding: 12px; margin-top: 12px; }
+    .step { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h2>本地数学 AI - 简单示例</h2>
+  <p>输入表达式（例如 <code>x^2+2*x+1</code> 或方程 <code>x^2-1=0</code>），选择模式后点击运行。</p>
+
+  <label>表达式 / 方程:</label>
+  <textarea id="expr">x^2+2*x+1</textarea>
+
+  <label>模式:</label>
+  <select id="mode">
+    <option value="simplify">化简 (simplify)</option>
+    <option value="solve">求解 (solve)</option>
+    <option value="diff">求导 (diff)</option>
+    <option value="integrate">积分 (integrate)</option>
+  </select>
+
+  <label>变量 (可选, 如 x):</label>
+  <input id="var" type="text" placeholder="x">
+
+  <br><br>
+  <button id="run">运行</button>
+
+  <div id="output" class="result"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script>
+    const runBtn = document.getElementById('run');
+    const output = document.getElementById('output');
+
+    runBtn.addEventListener('click', async () => {
+      const expr = document.getElementById('expr').value;
+      const mode = document.getElementById('mode').value;
+      const variable = document.getElementById('var').value || null;
+
+      output.innerHTML = '正在计算...';
+
+      try {
+        const res = await fetch('http://localhost:5000/api/solve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ expr: expr, mode: mode, var: variable })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          // 显示步骤
+          output.innerHTML = '';
+          if (data.steps && data.steps.length) {
+            data.steps.forEach(s => {
+              const div = document.createElement('div');
+              div.className = 'step';
+              const title = document.createElement('div');
+              title.textContent = s.step;
+              const latexDiv = document.createElement('div');
+              latexDiv.innerHTML = katex.renderToString(s.latex, { throwOnError: false });
+              div.appendChild(title);
+              div.appendChild(latexDiv);
+              output.appendChild(div);
+            });
+          } else {
+            output.textContent = '无步骤信息';
+          }
+        } else {
+          output.innerText = '错误: ' + (data.error || res.statusText);
+        }
+      } catch (err) {
+        output.innerText = '网络或服务器错误：' + err;
+      }
+    });
+  </script>
+</body>
+</html>
